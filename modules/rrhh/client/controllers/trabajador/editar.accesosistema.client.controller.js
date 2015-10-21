@@ -32,10 +32,10 @@ angular.module('rrhh').controller('Rrhh.Trabajador.EditarTrabajador.AccesoSistem
 
         $scope.save = function () {
 
-            SGUsuarioKeycloak.$search({username: $scope.view.usuario, max: 1}).then(function (response1) {
-                if (response1.length) {
-                    SGTrabajador.$search({usuario: $scope.view.usuario}).then(function (response2) {
-                        if (!response2.items.length) {
+            ///SGUsuarioKeycloak.$search({username: $scope.view.usuario, max: 1}).then(function (response1) {
+               // if (response1.length) {
+                    //SGTrabajador.$search({usuario: $scope.view.usuario}).then(function (response2) {
+                        //if (!response2.items.length) {
 
                             $scope.working = true;
                             $scope.view.trabajador.usuario = $scope.view.usuario;
@@ -49,14 +49,14 @@ angular.module('rrhh').controller('Rrhh.Trabajador.EditarTrabajador.AccesoSistem
                                     toastr.error(err.data.errorMessage);
                                 }
                             );
-                        } else {
-                            toastr.warning('Usuario ya fue asignado a otro trabajador');
-                        }
-                    });
-                } else {
-                    toastr.warning('Usuario no encontrado en Keycloak');
-                }
-            });
+                        //} else {
+                        //    toastr.warning('Usuario ya fue asignado a otro trabajador');
+                        //}
+                    //});
+                //} else {
+                //    toastr.warning('Usuario no encontrado en Keycloak');
+                //}
+            //});
 
         };
 
