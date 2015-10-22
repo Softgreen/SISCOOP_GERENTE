@@ -5,6 +5,7 @@ angular.module('debehaber').config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.when('/debehaber/app', '/debehaber/app/reporte');
+        $urlRouterProvider.when('/debehaber/app/reporte', '/debehaber/app/reporte/nuevosSoles');
 
         $stateProvider
             .state('debehaber', {
@@ -30,8 +31,38 @@ angular.module('debehaber').config(['$stateProvider', '$urlRouterProvider',
 
             .state('debehaber.app.reporte', {
                 url: '/reporte',
-                templateUrl: 'modules/debehaber/client/views/reporte.html',
-                controller: 'Debehaber.ReporteController'
+                templateUrl: 'modules/debehaber/client/views/reporteDebeHaber.html',
+                controller: 'Debehaber.ReporteDebeHaberController'
+            })
+            .state('debehaber.app.reporte.historialNuevosSoles', {
+                url: '/nuevosSoles',
+                templateUrl: 'modules/debehaber/client/views/historialNuevosSoles.html',
+                controller: 'Debehaber.ReporteDebeHaber.HistorialController',
+                resolve: {
+                    idMoneda: function () {
+                        return 1;
+                    }
+                }
+            })
+            .state('debehaber.app.reporte.historialDolares', {
+                url: '/dolares',
+                templateUrl: 'modules/debehaber/client/views/historialDolares.html',
+                controller: 'Debehaber.ReporteDebeHaber.HistorialController',
+                resolve: {
+                    idMoneda: function () {
+                        return 0;
+                    }
+                }
+            })
+            .state('debehaber.app.reporte.historialEuros', {
+                url: '/euros',
+                templateUrl: 'modules/debehaber/client/views/historialEuros.html',
+                controller: 'Debehaber.ReporteDebeHaber.HistorialController',
+                resolve: {
+                    idMoneda: function () {
+                        return 2;
+                    }
+                }
             });
     }
 ]);

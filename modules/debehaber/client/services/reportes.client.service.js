@@ -13,7 +13,7 @@ angular.module('debehaber').factory('ReportesService', ['Restangular',
                 return Restangular.all(baseUrl + '/debeHaber').customGET('total', queryParams);
             },
             getDebeHaberHistorialTotal: function (queryParams) {
-                return Restangular.all(baseUrl + '/debeHaber').customGET('historial', queryParams);
+                return Restangular.all(baseUrl + '/debeHaber/historial').getList(queryParams);
             }
         };
 
