@@ -36,7 +36,7 @@ angular.module('debehaber').controller('Debehaber.ReporteDebeHaber.HistorialCont
 
         $scope.loadFecha = function () {
             var currentDate = new Date();
-            $scope.desde.setDate(currentDate.getDate() - 13);
+            $scope.desde.setDate(currentDate.getDate() - 30);
             $scope.hasta.setDate(currentDate.getDate() - 1);
         };
         $scope.loadFecha();
