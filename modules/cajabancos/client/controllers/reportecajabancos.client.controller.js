@@ -1,9 +1,9 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 'SucursalService',
+angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 'SucursalService', 'ReporteCajaBancosService',
 
-    function ($scope, $state, SucursalService) {
+    function ($scope, $state, SucursalService, ReporteCajaBancosService) {
 
         $scope.combo = {
             sucursal: undefined,
@@ -13,6 +13,18 @@ angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 
             sucursal: undefined,
             agencia: undefined
         };
+
+        $scope.total = {
+            caja: {
+                soles: undefined,
+                dolares: undefined,
+                euros: undefined
+            },
+
+            cajas: undefined,
+            bancos: undefined
+        };
+
 
         $scope.loadCombo = function () {
             SucursalService.getSucursales().then(function (response1) {
@@ -35,6 +47,20 @@ angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 
             idAgencia: undefined
         };
 
-    }
+        $scope.loadMontoCajas=function(){
+            ReporteCajaBancosService.getTotalCajaByAgencia({idmoneda: 0, idagencia: $scope.combo.selected.agencia.id}).then(function (response) {
+                $scope.total.caja.dolares = response || 0;
+                console.log('dasdas');
+            });
 
+            ReporteCajaBancosService.getTotalCajaByAgencia({idmoneda: 1, idagencia: $scope.combo.selected.agencia.id}).then(function (response) {
+                $scope.total.caja.soles = response || 0;
+            });
+
+            ReporteCajaBancosService.getTotalCajaByAgencia({idmoneda: 2, idagencia: $scope.combo.selected.agencia.id}).then(function (response) {
+                $scope.total.caja.euros = response || 0;
+            });
+        };
+
+    }
 ]);

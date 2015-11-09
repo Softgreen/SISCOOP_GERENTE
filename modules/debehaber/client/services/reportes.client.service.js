@@ -16,5 +16,4 @@ angular.module('debehaber').factory('ReportesService', ['Restangular',
                 return Restangular.all(baseUrl + '/debeHaber/historial').getList(queryParams);
             }
         };
-
     }]);
