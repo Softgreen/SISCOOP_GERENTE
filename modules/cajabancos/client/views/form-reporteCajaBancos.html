@@ -1,12 +1,29 @@
 
-  <h1><strong>Reporte de Caja y Bancos</strong></h1>
+  <h1><strong>Reporte de Cajas y Bancos</strong></h1>
   <!-- <h2>Package: {{package.name}}</h2> -->
 
   <form name="form" class="form-horizontal" novalidate>
-    <h2><strong>Caja:</strong></h2>
+
+    <h3><strong>Total en Caja:</strong></h3>
+    <div class="col-sm-12">
+      <div class="col-sm-8">
+        <label class="col-sm-3 control-label">Monto de caja en Soles:</label>
+        <span data-ng-bind="total.cajaSoles | currency: 'S/.'" class="card-pf-aggregate-status-count"></span>
+      </div>
+      <div class="col-sm-8">
+        <label class="col-sm-3 control-label">Monto de caja en Dolares:</label>
+        <span data-ng-bind="total.cajaDolares | currency: '$'" class="card-pf-aggregate-status-count"></span>
+      </div>
+      <div class="col-sm-8">
+        <label class="col-sm-3 control-label">Monto de caja en Euros:</label>
+        <span data-ng-bind="total.cajaEuros | currency: '&#8364'" class="card-pf-aggregate-status-count"></span>
+      </div>
+    </div>
+
+    </br></br></br></br>
 
 
-
+    <h3><strong>Total en Caja por Agencia:</strong></h3>
     <div class="col-sm-5">
       <label class="col-sm-2 control-label">Sucursal:</label>
       <div class="form-group" data-ng-class="{ 'has-error' : form.sucursal.$invalid && (form.$submitted)}">
@@ -39,24 +56,22 @@
     </div>
 
     <div class="col-sm-2">
-      <button type="submit" class="btn btn-success" data-ng-click="loadMontoCajas()">Cargar</button>
+      <button type="submit" class="btn btn-success" data-ng-click="loadMontoCajasPorAgencias()">Cargar</button>
     </div>
-
-    <div class="col-sm-8">
-      <label class="col-sm-2 control-label">Caja en Soles:</label>
-      <span data-ng-bind="total.caja.soles | currency: 'S/.'" class="card-pf-aggregate-status-count"></span>
+    <div class="col-sm-12">
+      <div class="col-sm-8">
+        <label class="col-sm-3 control-label">Monto de caja en Soles:</label>
+        <span data-ng-bind="total.caja.soles | currency: 'S/.'" class="card-pf-aggregate-status-count"></span>
+      </div>
+      <div class="col-sm-8">
+        <label class="col-sm-3 control-label">Monto de caja en Dolares:</label>
+        <span data-ng-bind="total.caja.dolares | currency: '$'" class="card-pf-aggregate-status-count"></span>
+      </div>
+      <div class="col-sm-8">
+        <label class="col-sm-3 control-label">Monto de caja en Euros:</label>
+        <span data-ng-bind="total.caja.euros | currency: '&#8364'" class="card-pf-aggregate-status-count"></span>
+      </div>
     </div>
-
-    <div class="col-sm-8">
-      <label class="col-sm-2 control-label">Caja en Dolares:</label>
-      <span data-ng-bind="total.caja.dolares | currency: '$'" class="card-pf-aggregate-status-count"></span>
-    </div>
-
-    <div class="col-sm-8">
-      <label class="col-sm-2 control-label">Caja en Euros:</label>
-      <span data-ng-bind="total.caja.euros | currency: '&#8364'" class="card-pf-aggregate-status-count"></span>
-    </div>
-
   </form>
 
 

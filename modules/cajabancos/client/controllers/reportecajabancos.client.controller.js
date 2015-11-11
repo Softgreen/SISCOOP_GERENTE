@@ -21,8 +21,9 @@ angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 
                 euros: undefined
             },
 
-            cajas: undefined,
-            bancos: undefined
+            cajaSoles: undefined,
+            cajaDolares: undefined,
+            cajaEuros: undefined
         };
 
 
@@ -47,10 +48,9 @@ angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 
             idAgencia: undefined
         };
 
-        $scope.loadMontoCajas=function(){
+        $scope.loadMontoCajasPorAgencias=function(){
             ReporteCajaBancosService.getTotalCajaByAgencia({idmoneda: 0, idagencia: $scope.combo.selected.agencia.id}).then(function (response) {
                 $scope.total.caja.dolares = response || 0;
-                console.log('dasdas');
             });
 
             ReporteCajaBancosService.getTotalCajaByAgencia({idmoneda: 1, idagencia: $scope.combo.selected.agencia.id}).then(function (response) {
@@ -62,5 +62,19 @@ angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 
             });
         };
 
+        $scope.loadMontoCajas=function(){
+            ReporteCajaBancosService.getTotalCaja({idmoneda: 0}).then(function (response) {
+                $scope.total.cajaDolares = response || 0;
+            });
+
+            ReporteCajaBancosService.getTotalCaja({idmoneda: 1}).then(function (response) {
+                $scope.total.cajaSoles = response || 0;
+            });
+
+            ReporteCajaBancosService.getTotalCaja({idmoneda: 2}).then(function (response) {
+                $scope.total.cajaEuros = response || 0;
+            });
+        };
+        $scope.loadMontoCajas();
     }
 ]);
