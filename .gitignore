@@ -1,3 +1,9 @@
+/node_modules
+/dist
+/.tmp
+/.sass-cache
+/bower_components
+
 # OS
 # ===========
 .DS_Store
@@ -20,7 +26,7 @@ coverage/
 # ======================
 public/dist/
 uploads
-modules/users/client/img/profile/uploads
+app/modules/users/client/img/profile/uploads
 config/env/local.js
 *.pem
 
