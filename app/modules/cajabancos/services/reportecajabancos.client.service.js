@@ -12,6 +12,10 @@ angular.module('cajabancos').factory('ReporteCajaBancosService', ['Restangular',
 
             getTotalCaja: function (queryParams) {
                 return Restangular.all(baseUrl).customGET('montoTotalCaja', queryParams);
+            },
+
+            getTotalBancos: function (queryParams) {
+                return Restangular.all(baseUrl).customGET('bancos', queryParams);
             }
         };
 

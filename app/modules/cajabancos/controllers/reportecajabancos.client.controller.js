@@ -37,10 +37,8 @@ angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 
       },
       bar: {
         width: {
-          ratio: 0.5 // this makes bar width 50% of length between ticks
+          ratio: 0.5
         }
-        // or
-        //width: 100 // this makes bar width 100px
       }
     };
 
@@ -98,6 +96,41 @@ angular.module('cajabancos').controller('ReporteController', ['$scope', 'Auth', 
     };
 
 
+    $scope.bancos = {
+      soles: 0,
+      dolares: 0,
+      euros: 0
+    };
+    $scope.chartConfigBancos = {
+      data: {
+        columns: [
+          ['Nuevos soles', 0],
+          ['Dolares americanos', 0],
+          ['Euros', 0]
+        ],
+        type: 'bar'
+      },
+      bar: {
+        width: {
+          ratio: 0.5
+        }
+      }
+    };
+    $scope.loadBancos = function () {
+      ReporteCajaBancosService.getTotalBancos({idMoneda: 1}).then(function (response) {
+        $scope.bancos.soles = response || 0;
+        $scope.chartConfigBancos.data.columns[0][1] = response || 0;
+      });
+      ReporteCajaBancosService.getTotalBancos({idMoneda: 0}).then(function (response) {
+        $scope.bancos.dolares = response || 0;
+        $scope.chartConfigBancos.data.columns[1][1] = response || 0;
+      });
+      ReporteCajaBancosService.getTotalBancos({idMoneda: 2}).then(function (response) {
+        $scope.bancos.euros = response || 0;
+        $scope.chartConfigBancos.data.columns[2][1] = response || 0;
+      });
+    };
+    $scope.loadBancos();
 
 
   }
