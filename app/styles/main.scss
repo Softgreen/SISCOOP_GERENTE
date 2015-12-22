@@ -2,6 +2,10 @@ $icon-font-path: "../bower_components/patternfly-sass/assets/fonts/patternfly/";
 // bower:scss
 // endbower
 
+.c3-tooltip td {
+  color: #000000 !important;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
