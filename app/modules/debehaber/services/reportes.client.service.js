@@ -14,6 +14,19 @@ angular.module('debehaber').factory('ReportesService', ['Restangular',
             },
             getDebeHaberHistorialTotal: function (queryParams) {
                 return Restangular.all(baseUrl + '/debeHaber/historial').getList(queryParams);
+            },
+
+            getCuentasPorCobrar: function (queryParams) {
+              return Restangular.all(baseUrl).customGET('cuentasPorCobrar', queryParams);
+            },
+            getCuentasPorPagar: function (queryParams) {
+              return Restangular.all(baseUrl).customGET('cuentasPorPagar', queryParams);
+            },
+            getPatrimonio: function (queryParams) {
+              return Restangular.all(baseUrl).customGET('patrimonio', queryParams);
+            },
+            getUtilidad: function (queryParams) {
+              return Restangular.all(baseUrl).customGET('utilidad', queryParams);
             }
         };
     }]);
