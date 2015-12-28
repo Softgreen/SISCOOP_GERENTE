@@ -19,8 +19,8 @@ window.auth = {};
 window.auth.keycloakUrl = 'http://multivadelsur.ddns.net:8080/auth';
 window.auth.keycloakRealm = 'SISTEMA_FINANCIERO';
 window.auth.keycloakClientId = 'SISTCOOP_APP';
-//window.auth.rrhhUrl = 'http://192.168.1.90:8080/SISTCOOP_REST/rest';
-window.auth.rrhhUrl = 'http://multivadelsur.ddns.net:8080/SISTCOOP_REST/rest';
+//window.auth.rrhhUrl = 'http://multivadelsur.ddns.net:8080/SISTCOOP_REST/rest';
+window.auth.rrhhUrl = 'http://192.168.1.90:8080/SISTCOOP_REST/rest';
 
 window.auth.empresa = 'MULTIVALORES DEL SUR';
 window.auth.printer = 'EPSON TM-U220';
@@ -79,13 +79,12 @@ angular.element(document).ready(function () {
       angular.module('mean').constant('EMPRESA', window.auth.empresa);
       angular.module('mean').constant('PRINTER', window.auth.printer);
 
-      //if (angular.isUndefined(sistcoop.agencia) || angular.isUndefined(sistcoop.caja) || angular.isUndefined(sistcoop.persona)) {
-      // alert('No tiene una agencia, trabajador o caja asignada.');
-      //  keycloak.logout();
-      //} else {
+      if(keycloak.realmAccess.roles.indexOf('GERENTE') !== -1) {
         //Then init the app
         angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
-      //}
+      } else {
+        alert('Usuario no tiene el Rol GERENTE');
+      }
     }).error(function () {
       alert('No se pudo verificar el origen de sucursal y agencia para el usuario');
     });
