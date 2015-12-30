@@ -5,7 +5,7 @@ angular.module('debehaber').config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.when('/debehaber/app', '/debehaber/app/reporte');
-        $urlRouterProvider.when('/debehaber/app/reporte', '/debehaber/app/reporte/nuevosSoles');
+        //$urlRouterProvider.when('/debehaber/app/reporte', '/debehaber/app/reporte/nuevosSoles');
 
         $stateProvider
             .state('debehaber', {
@@ -63,6 +63,12 @@ angular.module('debehaber').config(['$stateProvider', '$urlRouterProvider',
                         return 2;
                     }
                 }
+            })
+
+            .state('debehaber.app.reporteDetallado', {
+              url: '/reporteDetallado',
+              templateUrl: 'modules/debehaber/views/reporteDebeHaber_detallado.html',
+              controller: 'Debehaber.ReporteDebeHaberDetalladoController'
             });
     }
 ]);

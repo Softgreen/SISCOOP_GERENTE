@@ -1,0 +1,228 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header page-header-bleed-right">
+      <div class="actions pull-right">
+        <!--<button type="button" class="btn btn-link"><span class="pficon pficon-refresh"></span> Actualizar</button>-->
+      </div>
+      <h1>Debe y Haber</h1>
+    </div>
+    <div class="row row-cards-pf">
+      <div class="col-sm-12">
+        <div class="card-pf card-pf-accented">
+          <div class="card-pf-body">
+            <form name="form" ng-submit="generarReporte()" class="form-inline">
+              <div class="form-group" ng-class="{ 'has-error' : form.fecha.$invalid }">
+                <label>Fecha</label>
+                <div class="input-group">
+                  <input type="text" name="fecha" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="fecha"
+                         is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
+                  <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                </div>
+              </div>
+              <button class="btn btn-default" type="submit">Buscar&nbsp;<i class="fa fa-search text"></i></button>
+
+            </form>
+            </br>
+
+            <button type="button" data-ng-click="imprimir()" class="btn btn-default" style="float: right;"><i class="pficon pficon-print"></i><span>&nbsp;Imprimir</span></button>
+            <tabset>
+              <tab heading="Nuevos soles">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h3><strong>DEBE</strong></h3>
+                    <table class="table table-striped table-bordered table-hover" style="font-size: 10px;">
+                      <thead>
+                      <td>Nro</td>
+                      <td>Fecha</td>
+                      <td>Documento</td>
+                      <td>Persona</td>
+                      <td>Num.Cuenta</td>
+                      <td>Monto</td>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="item in listDebeNuevosSoles">
+                        <td><span ng-bind="$index+1"></span></td>
+                        <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                        <td><span ng-bind-template="{{item.tipoDocumento}}/{{item.numeroDocumento}}"></span></td>
+                        <td><span ng-bind="item.persona"></span></td>
+                        <td><span ng-bind="item.numeroCuenta"></span></td>
+                        <td style="text-align: right;"><span ng-bind="item.monto | number: 2"></span></td>
+                      </tr>
+                      <tr ng-if="!listDebeNuevosSoles.length">
+                        <td colspan="6">No existente</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                      <td colspan="2" style="text-align: right;"><strong ng-bind="totalDebeNuevosSoles | number: 2"></strong></td>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <div class="col-sm-6">
+                    <h3><strong>HABER</strong></h3>
+                    <table class="table table-striped table-bordered table-hover" style="font-size: 10px;">
+                      <thead>
+                      <td>Nro</td>
+                      <td>Fecha</td>
+                      <td>Documento</td>
+                      <td>Persona</td>
+                      <td>Num.Cuenta</td>
+                      <td>Monto</td>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="item in listHaberNuevosSoles">
+                        <td><span ng-bind="$index+1"></span></td>
+                        <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                        <td><span ng-bind-template="{{item.tipoDocumento}}/{{item.numeroDocumento}}"></span></td>
+                        <td><span ng-bind="item.persona"></span></td>
+                        <td><span ng-bind="item.numeroCuenta"></span></td>
+                        <td style="text-align: right;"><span ng-bind="item.monto | number: 2"></span></td>
+                      </tr>
+                      <tr ng-if="!listHaberNuevosSoles.length">
+                        <td colspan="6">No existente</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                      <td colspan="2" style="text-align: right;"><strong ng-bind="totalHaberNuevosSoles | number: 2"></strong></td>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </tab>
+              <tab heading="Dolares">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h3><strong>DEBE</strong></h3>
+                    <table class="table table-striped table-bordered table-hover" style="font-size: 10px;">
+                      <thead>
+                      <td>Nro</td>
+                      <td>Fecha</td>
+                      <td>Documento</td>
+                      <td>Persona</td>
+                      <td>Num.Cuenta</td>
+                      <td>Monto</td>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="item in listDebeDolares">
+                        <td><span ng-bind="$index+1"></span></td>
+                        <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                        <td><span ng-bind-template="{{item.tipoDocumento}}/{{item.numeroDocumento}}"></span></td>
+                        <td><span ng-bind="item.persona"></span></td>
+                        <td><span ng-bind="item.numeroCuenta"></span></td>
+                        <td style="text-align: right;"><span ng-bind="item.monto | number: 2"></span></td>
+                      </tr>
+                      <tr ng-if="!listDebeDolares.length">
+                        <td colspan="6">No existente</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                      <td colspan="2" style="text-align: right;"><strong ng-bind="totalDebeDolares | number: 2"></strong></td>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <div class="col-sm-6">
+                    <h3><strong>HABER</strong></h3>
+                    <table class="table table-striped table-bordered table-hover" style="font-size: 10px;">
+                      <thead>
+                      <td>Nro</td>
+                      <td>Fecha</td>
+                      <td>Documento</td>
+                      <td>Persona</td>
+                      <td>Num.Cuenta</td>
+                      <td>Monto</td>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="item in listHaberDolares">
+                        <td><span ng-bind="$index+1"></span></td>
+                        <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                        <td><span ng-bind-template="{{item.tipoDocumento}}/{{item.numeroDocumento}}"></span></td>
+                        <td><span ng-bind="item.persona"></span></td>
+                        <td><span ng-bind="item.numeroCuenta"></span></td>
+                        <td style="text-align: right;"><span ng-bind="item.monto | number: 2"></span></td>
+                      </tr>
+                      <tr ng-if="!listHaberDolares.length">
+                        <td colspan="6">No existente</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                      <td colspan="2" style="text-align: right;"><strong ng-bind="totalHaberDolares | number: 2"></strong></td>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </tab>
+              <tab heading="Euros">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h3><strong>DEBE</strong></h3>
+                    <table class="table table-striped table-bordered table-hover" style="font-size: 10px;">
+                      <thead>
+                      <td>Nro</td>
+                      <td>Fecha</td>
+                      <td>Documento</td>
+                      <td>Persona</td>
+                      <td>Num.Cuenta</td>
+                      <td>Monto</td>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="item in listDebeEuros">
+                        <td><span ng-bind="$index+1"></span></td>
+                        <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                        <td><span ng-bind-template="{{item.tipoDocumento}}/{{item.numeroDocumento}}"></span></td>
+                        <td><span ng-bind="item.persona"></span></td>
+                        <td><span ng-bind="item.numeroCuenta"></span></td>
+                        <td style="text-align: right;"><span ng-bind="item.monto | number: 2"></span></td>
+                      </tr>
+                      <tr ng-if="!listDebeEuros.length">
+                        <td colspan="6">No existente</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                      <td colspan="2" style="text-align: right;"><strong ng-bind="totalDebeEuros | number: 2"></strong></td>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <div class="col-sm-6">
+                    <h3><strong>HABER</strong></h3>
+                    <table class="table table-striped table-bordered table-hover" style="font-size: 10px;">
+                      <thead>
+                      <td>Nro</td>
+                      <td>Fecha</td>
+                      <td>Documento</td>
+                      <td>Persona</td>
+                      <td>Num.Cuenta</td>
+                      <td>Monto</td>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="item in listHaberEuros">
+                        <td><span ng-bind="$index+1"></span></td>
+                        <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                        <td><span ng-bind-template="{{item.tipoDocumento}}/{{item.numeroDocumento}}"></span></td>
+                        <td><span ng-bind="item.persona"></span></td>
+                        <td><span ng-bind="item.numeroCuenta"></span></td>
+                        <td style="text-align: right;"><span ng-bind="item.monto | number: 2"></span></td>
+                      </tr>
+                      <tr ng-if="!listHaberEuros.length">
+                        <td colspan="6">No existente</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                      <td colspan="2" style="text-align: right;"><strong ng-bind="totalHaberEuros | number: 2"></strong></td>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </tab>
+            </tabset>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

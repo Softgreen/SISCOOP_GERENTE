@@ -15,6 +15,9 @@ angular.module('debehaber').factory('ReportesService', ['Restangular',
             getDebeHaberHistorialTotal: function (queryParams) {
                 return Restangular.all(baseUrl + '/debeHaber/historial').getList(queryParams);
             },
+            getDebeHaberPdfUrl: function(fecha) {
+              return Restangular.all(baseUrl + '/debeHaber/pdf?fecha=' + fecha.getTime()).getRestangularUrl();
+            },
 
             getCuentasPorCobrar: function (queryParams) {
               return Restangular.all(baseUrl).customGET('cuentasPorCobrar', queryParams);
