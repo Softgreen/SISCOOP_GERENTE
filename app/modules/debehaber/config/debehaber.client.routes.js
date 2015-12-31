@@ -5,7 +5,7 @@ angular.module('debehaber').config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.when('/debehaber/app', '/debehaber/app/reporte');
-        //$urlRouterProvider.when('/debehaber/app/reporte', '/debehaber/app/reporte/nuevosSoles');
+        $urlRouterProvider.when('/debehaber/app/reporte', '/debehaber/app/reporte/nuevosSoles');
 
         $stateProvider
             .state('debehaber', {
