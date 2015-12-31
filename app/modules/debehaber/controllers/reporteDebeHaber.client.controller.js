@@ -20,11 +20,11 @@ angular.module('debehaber').controller('Debehaber.ReporteDebeHaberController', [
             }
         };
 
-        $scope.loadFecha = function () {
+        /*$scope.loadFecha = function () {
             var currentDate = new Date();
             $scope.fecha.setDate(currentDate.getDate() - 1);
         };
-        $scope.loadFecha();
+        $scope.loadFecha();*/
 
         $scope.loadTotal = function () {
             ReportesService.getDebeHaberTotal({fecha: $scope.fecha.getTime(), tipo: 'DEBE', idMoneda: 1}).then(function (response) {
