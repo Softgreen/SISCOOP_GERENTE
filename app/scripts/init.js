@@ -84,6 +84,7 @@ angular.element(document).ready(function () {
         angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
       } else {
         alert('Usuario no tiene el Rol GERENTE');
+        keycloak.logout();
       }
     }).error(function () {
       alert('No se pudo verificar el origen de sucursal y agencia para el usuario');

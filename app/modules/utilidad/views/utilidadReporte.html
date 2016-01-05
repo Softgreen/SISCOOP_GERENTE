@@ -1,14 +1,14 @@
 <div class="row">
-  <div class="col-sm-8 col-md-9" style="min-height: 523px;">
+  <div class="col-sm-8 col-md-9">
     <div class="page-header page-header-bleed-right">
       <div class="actions pull-right">
         <button type="button" class="btn btn-link"><span class="pficon pficon-refresh"></span> Actualizar</button>
       </div>
       <h1>Utilidades</h1>
     </div>
+
     <div class="row row-cards-pf">
-      <div class="col-sm-4">
-      </div>
+      <div class="col-sm-4"></div>
       <div class="col-sm-4">
         <div class="card-pf card-pf-accented card-pf-aggregate-status">
           <h2 class="card-pf-title">
@@ -20,8 +20,6 @@
             </p>
           </div>
         </div>
-      </div>
-      <div class="col-sm-4">
       </div>
     </div>
     <div class="row">
@@ -182,10 +180,11 @@
         </div>
       </div>
     </div>
+
   </div>
   <!-- /col -->
 
-  <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right" style="min-height: 223px;">
+  <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
     <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
       <h2 class="h5">Datos adicionales</h2>
     </div>
@@ -209,9 +208,27 @@
 
 </div>
 
+<hr/>
 
-
-
-
-
-
+<div class="row" style="background-color: #fff;">
+  <div class="col-sm-9">
+    <div class="page-header page-header-bleed-right">
+      <h1>Utilidades</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div pf-c3-chart id="chartId" config="chartConfig"></div>
+      </div>
+    </div>
+  </div>
+  <!-- /col -->
+  <div class="col-sm-3 sidebar-pf sidebar-pf-right">
+    <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
+      <h2 class="h5">Datos adicionales</h2>
+    </div>
+    <h2 class="card-pf-title">
+      <a href="#"><span class="pficon pficon-cluster"></span><span data-ng-bind="utilidad.total | currency: 'S/.'" class="card-pf-aggregate-status-count"></span></a>
+    </h2>
+  </div>
+  <!-- /col -->
+</div>

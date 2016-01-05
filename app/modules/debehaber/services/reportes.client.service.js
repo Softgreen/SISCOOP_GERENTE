@@ -28,8 +28,12 @@ angular.module('debehaber').factory('ReportesService', ['Restangular',
             getPatrimonio: function (queryParams) {
               return Restangular.all(baseUrl).customGET('patrimonio', queryParams);
             },
+
             getUtilidad: function (queryParams) {
               return Restangular.all(baseUrl).customGET('utilidad', queryParams);
+            },
+            getUtilidadHistorial: function (queryParams) {
+              return Restangular.all(baseUrl).customGET('utilidad/historial', queryParams);
             }
         };
     }]);

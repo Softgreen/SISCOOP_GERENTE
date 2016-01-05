@@ -126,5 +126,67 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
     };
     $scope.loadPatrimonio();
 
+    // Utilidad Historial
+    /*$scope.config = {
+      'chartId': 'utilidadSparkline',
+      'tooltipType': 'valuePerDay'
+    };
+    $scope.data = {
+      'total': '100',
+      'xData': ['dates'],
+      'yData': ['Utilidad']
+    };
+    $scope.custShowXAxis = true;
+    $scope.custShowYAxis = true;
+    $scope.custChartHeight = 100;
+    $scope.addDataPoint = function (fecha, valor) {
+      $scope.data.xData.push(fecha);
+      $scope.data.yData.push(valor);
+    };*/
+
+    $scope.chartConfig = {
+      data: {
+        x: 'x',
+        columns: [
+          ['x'],
+          ['Utilidad'],
+          ['T.Cambio dolar'],
+          ['T.Cambio euro']
+        ]
+      },
+      axis: {
+        x: {
+          type: 'timeseries',
+          tick: {
+            format: '%d-%m-%Y'
+          }
+        }
+      }
+    };
+
+    $scope.addDataPoint = function (fecha, utilidad, tipoCambioDolar, tipoCambioEuro) {
+      $scope.chartConfig.data.columns[0].push(fecha);
+      $scope.chartConfig.data.columns[1].push(utilidad);
+      $scope.chartConfig.data.columns[2].push(tipoCambioDolar);
+      $scope.chartConfig.data.columns[3].push(tipoCambioEuro);
+    };
+
+    var loadHistorialUtilidades = function() {
+      var desde = new Date();
+      var hasta = new Date();
+
+      var currentDate = new Date();
+      desde.setDate(currentDate.getDate() - 30);
+      hasta.setDate(currentDate.getDate() - 1);
+
+      ReportesService.getUtilidadHistorial({desde: desde.getTime(), hasta: hasta.getTime()}).then(function(response){
+        for(var i = 0; i < response.length; i++) {
+          $scope.addDataPoint(response[i].fecha, response[i].utilidadTotal, response[i].tipoCambioCompraDolares, response[i].tipoCambioCompraEuros);
+        }
+      });
+    };
+    loadHistorialUtilidades();
+
+
   }
 ]);
