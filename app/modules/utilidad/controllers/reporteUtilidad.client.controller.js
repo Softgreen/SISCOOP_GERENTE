@@ -161,6 +161,14 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
             format: '%d-%m-%Y'
           }
         }
+      },
+      grid: {
+        x: {
+          show: true
+        },
+        y: {
+          show: true
+        }
       }
     };
 
