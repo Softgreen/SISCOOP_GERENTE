@@ -226,9 +226,16 @@
     <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
       <h2 class="h5">Datos adicionales</h2>
     </div>
-    <h2 class="card-pf-title">
-      <a href="#"><span class="pficon pficon-cluster"></span><span data-ng-bind="utilidad.total | currency: 'S/.'" class="card-pf-aggregate-status-count"></span></a>
-    </h2>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h3 class="list-group-item-heading">Formulas</h3>
+
+        <p data-ng-bind="fecha | date: 'dd/MM/yyyy'" class="list-group-item-text"></p>
+      </li>
+    </ul>
+    <p><strong>Utilidad neta =</strong> Soles + Dolares(Tipo compra dolar) + Euros(Tipo compra euro)</p>
+    <p></p>
+    <p>El siguiente grafico incluye todos el reporte de los 30 ultimos dias e incluye sabados y domingos.</p>
   </div>
   <!-- /col -->
 </div>

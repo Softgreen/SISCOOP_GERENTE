@@ -181,7 +181,7 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
 
       ReportesService.getUtilidadHistorial({desde: desde.getTime(), hasta: hasta.getTime()}).then(function(response){
         for(var i = 0; i < response.length; i++) {
-          $scope.addDataPoint(response[i].fecha, response[i].utilidadTotal, response[i].tipoCambioCompraDolares, response[i].tipoCambioCompraEuros);
+          $scope.addDataPoint(response[i].fecha, response[i].utilidadPorDia, response[i].tipoCambioCompraDolares, response[i].tipoCambioCompraEuros);
         }
       });
     };
