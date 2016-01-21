@@ -6,6 +6,10 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
 
     $scope.utilidad = {
       total: undefined,
+
+      netaDelDia: undefined,
+      utilidadHistorial: undefined,
+
       soles: undefined,
       dolares: undefined,
       euros: undefined
@@ -127,23 +131,6 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
     $scope.loadPatrimonio();
 
     // Utilidad Historial
-    /*$scope.config = {
-      'chartId': 'utilidadSparkline',
-      'tooltipType': 'valuePerDay'
-    };
-    $scope.data = {
-      'total': '100',
-      'xData': ['dates'],
-      'yData': ['Utilidad']
-    };
-    $scope.custShowXAxis = true;
-    $scope.custShowYAxis = true;
-    $scope.custChartHeight = 100;
-    $scope.addDataPoint = function (fecha, valor) {
-      $scope.data.xData.push(fecha);
-      $scope.data.yData.push(valor);
-    };*/
-
     $scope.chartConfig = {
       data: {
         x: 'x',
@@ -188,6 +175,7 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
       hasta.setDate(currentDate.getDate() - 1);
 
       ReportesService.getUtilidadHistorial({desde: desde.getTime(), hasta: hasta.getTime()}).then(function(response){
+        $scope.utilidad.utilidadHistorial = response;
         for(var i = 0; i < response.length; i++) {
           $scope.addDataPoint(response[i].fecha, response[i].utilidadPorDia, response[i].tipoCambioCompraDolares, response[i].tipoCambioCompraEuros);
         }
@@ -195,6 +183,27 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
     };
     loadHistorialUtilidades();
 
+
+    //Load Utilidad neta del dia
+    $scope.$watch('utilidad.total', function(newValue, oldValue) {
+      reloadUtilidadDelDia();
+    }, true);
+
+    $scope.$watchCollection('utilidad.utilidadHistorial', function(newValue, oldValue) {
+      reloadUtilidadDelDia();
+    }, true);
+
+    var reloadUtilidadDelDia = function(){
+      var utilidadTotal = $scope.utilidad.total | 0;
+      var ultimaUtilidadTotal = 0;
+      if($scope.utilidad.utilidadHistorial) {
+        var ultimaUtilidadObj = $scope.utilidad.utilidadHistorial[$scope.utilidad.utilidadHistorial.length - 1];
+        if(ultimaUtilidadObj) {
+          utilidadTotal = ultimaUtilidadObj.utilidadTotal;
+        }
+      }
+      $scope.utilidad.netaDelDia = utilidadTotal - utilidadTotal;
+    };
 
   }
 ]);
