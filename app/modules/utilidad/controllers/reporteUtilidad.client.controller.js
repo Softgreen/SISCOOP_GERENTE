@@ -199,10 +199,10 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
       if($scope.utilidad.utilidadHistorial) {
         var ultimaUtilidadObj = $scope.utilidad.utilidadHistorial[$scope.utilidad.utilidadHistorial.length - 1];
         if(ultimaUtilidadObj) {
-          utilidadTotal = ultimaUtilidadObj.utilidadTotal;
+          ultimaUtilidadTotal = ultimaUtilidadObj.utilidadTotal;
         }
       }
-      $scope.utilidad.netaDelDia = utilidadTotal - utilidadTotal;
+      $scope.utilidad.netaDelDia = utilidadTotal - ultimaUtilidadTotal;
     };
 
   }
