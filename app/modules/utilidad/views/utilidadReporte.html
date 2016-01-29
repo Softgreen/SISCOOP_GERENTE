@@ -12,7 +12,7 @@
       <div class="col-sm-4">
         <div class="card-pf card-pf-accented card-pf-aggregate-status">
           <h2 class="card-pf-title">
-            <a href="#"><span class="pficon pficon-cluster"></span><span data-ng-bind="utilidad.total | currency: 'S/.'" class="card-pf-aggregate-status-count"></span></a>
+            <a href="#"><span class="pficon pficon-cluster"></span>S/.<span data-ng-bind="utilidad.total | number: 3" class="card-pf-aggregate-status-count"></span></a>
           </h2>
           <div class="card-pf-body">
             <p class="card-pf-aggregate-status-notifications">
@@ -68,7 +68,8 @@
                 <td>&nbsp;</td>
                 <td align="right"><strong>Monto neto del dia:</strong></td>
                 <td align="right">
-                  <strong data-ng-bind="utilidad.soles | currency: 'S/.'"></strong>
+                  <strong>S/.</strong>
+                  <strong data-ng-bind="utilidad.soles | number: 3"></strong>
                 </td>
               </tr>
             </table>
@@ -120,7 +121,8 @@
                 <td>&nbsp;</td>
                 <td align="right"><strong>Monto neto del dia:</strong></td>
                 <td align="right">
-                  <strong data-ng-bind="utilidad.dolares | currency: '$'"></strong>
+                  <strong>$</strong>
+                  <strong data-ng-bind="utilidad.dolares | number: 3"></strong>
                 </td>
               </tr>
             </table>
@@ -172,7 +174,8 @@
                 <td>&nbsp;</td>
                 <td align="right"><strong>Monto neto del dia:</strong></td>
                 <td align="right">
-                  <strong data-ng-bind="utilidad.euros | currency: '&#8364'"></strong>
+                  <strong>&#8364</strong>
+                  <strong data-ng-bind="utilidad.euros | number: 3"></strong>
                 </td>
               </tr>
             </table>
@@ -213,7 +216,7 @@
 <div class="row" style="background-color: #fff;">
   <div class="col-sm-9">
     <div class="page-header page-header-bleed-right">
-      <h1>Utilidad neta (Utilidad del Dia: {{utilidad.netaDelDia | currency: ''}})</h1>
+      <h1>Utilidad neta (Utilidad del Dia: {{utilidad.netaDelDia | number: 3}})</h1>
     </div>
     <div class="row">
       <div class="col-sm-12">

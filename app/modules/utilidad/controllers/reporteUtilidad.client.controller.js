@@ -194,7 +194,11 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
     }, true);
 
     var reloadUtilidadDelDia = function(){
-      var utilidadTotal = $scope.utilidad.total | 0;
+      var utilidadTotal = 0;
+      if($scope.utilidad.total) {
+        utilidadTotal = $scope.utilidad.total;
+      }
+
       var ultimaUtilidadTotal = 0;
       if($scope.utilidad.utilidadHistorial) {
         var ultimaUtilidadObj = $scope.utilidad.utilidadHistorial[$scope.utilidad.utilidadHistorial.length - 1];
