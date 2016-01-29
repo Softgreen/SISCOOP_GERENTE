@@ -65,6 +65,11 @@ angular.module('debehaber').config(['$stateProvider', '$urlRouterProvider',
                 }
             })
 
+            .state('debehaber.app.reporteSimplificado', {
+              url: '/reporteSimplificado',
+              templateUrl: 'modules/debehaber/views/reporteDebeHaber_simplificado.html',
+              controller: 'Debehaber.ReporteDebeHaberSimplificadoController'
+            })
             .state('debehaber.app.reporteDetallado', {
               url: '/reporteDetallado',
               templateUrl: 'modules/debehaber/views/reporteDebeHaber_detallado.html',

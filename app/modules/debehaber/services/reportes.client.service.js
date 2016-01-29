@@ -9,6 +9,9 @@ angular.module('debehaber').factory('ReportesService', ['Restangular',
             getDebeHaber: function (queryParams) {
                 return Restangular.all(baseUrl + '/debeHaber').getList(queryParams);
             },
+            getDebeHaberSimplificado: function (queryParams) {
+              return Restangular.all(baseUrl + '/debeHaber/simplificado').getList(queryParams);
+            },
             getDebeHaberTotal: function (queryParams) {
                 return Restangular.all(baseUrl + '/debeHaber').customGET('total', queryParams);
             },

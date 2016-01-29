@@ -22,10 +22,16 @@ angular.module('debehaber').run(['Menus',
       state: 'debehaber.app.reporte'
     });
 
+    Menus.addSubMenuItem('topbar', 'debehaber.app', {
+      title: 'Simplificado',
+      state: 'debehaber.app.reporteSimplificado'
+    });
+
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'debehaber.app', {
       title: 'Detallado',
       state: 'debehaber.app.reporteDetallado'
     });
+
 	}
 ]);
