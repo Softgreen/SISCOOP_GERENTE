@@ -4,7 +4,7 @@
 angular.module('utilidad').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/utilidad/app', '/utilidad/app/reporte');
+    //$urlRouterProvider.when('/utilidad/app', '/utilidad/app/reporte');
 
     $stateProvider
       .state('utilidad', {
@@ -29,9 +29,19 @@ angular.module('utilidad').config(['$stateProvider', '$urlRouterProvider',
       })
 
       .state('utilidad.app.reporte', {
-        url: '/reporte',
+        url: '/reporteResumen',
         templateUrl: 'modules/utilidad/views/utilidadReporte.html',
         controller: 'Utilidad.ReporteUtilidadController'
+      })
+      .state('utilidad.app.reporteDetallado', {
+        url: '/reporteDetallado',
+        templateUrl: 'modules/utilidad/views/reporte_detallado.html',
+        controller: 'Utilidad.ReporteDetalladoController'
+      })
+      .state('utilidad.app.reporteMovimientos', {
+        url: '/reporteMovimientos',
+        templateUrl: 'modules/utilidad/views/reporte_movimientos.html',
+        controller: 'Utilidad.ReporteMovimientosController'
       });
 
   }

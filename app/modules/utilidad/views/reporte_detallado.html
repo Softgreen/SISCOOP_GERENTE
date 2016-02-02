@@ -1,0 +1,240 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header page-header-bleed-right">
+      <div class="actions pull-right">
+        <!--<button type="button" class="btn btn-link"><span class="pficon pficon-refresh"></span> Actualizar</button>-->
+        <h2>Utilidad acumulada: S/.{{utilidadTotal | number: 3}}</h2>
+      </div>
+      <h1>Utilidades detalle</h1>
+      <br>
+    </div>
+    <div class="row row-cards-pf">
+      <div class="col-sm-12">
+        <div class="card-pf card-pf-accented">
+          <div class="card-pf-body">
+            <form name="form" ng-submit="generarReporte()" class="form-inline">
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="required">*</span> Periodo:</label>
+                <div class="col-sm-2" data-ng-controller="Util.DateController">
+                  <div class="input-group" data-ng-class="{ 'has-error' : form.desde.$invalid && (form.$submitted)}">
+                    <input type="text" name="desde" class="form-control" data-ng-model="view.desde" datepicker-popup="dd/MM/yyyy" is-open="opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" placeholder="Desde" required>
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                  </div>
+                </div>
+                <div class="col-sm-2" data-ng-controller="Util.DateController">
+                  <div class="input-group" data-ng-class="{ 'has-error' : form.hasta.$invalid && (form.$submitted)}">
+                    <input type="text" name="hasta" class="form-control" data-ng-model="view.hasta" datepicker-popup="dd/MM/yyyy" is-open="opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" placeholder="Hasta" required>
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-group">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="buscarUtilidades()">Buscar&nbsp;<i class="fa fa-search text"></i></button></span>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-group text-right">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="imprimir()">Imprimir&nbsp;<i class="pficon pficon-print text"></i></button></span>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <br>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <td><strong></strong></td>
+                    <td><strong>Nro</strong></td>
+                    <td><strong>Fecha</strong></td>
+                    <td><strong>Cierre soles</strong></td>
+                    <td><strong>Cierre dolares</strong></td>
+                    <td><strong>Cierre euros</strong></td>
+                    <td><strong>Cierre total</strong></td>
+                    <td><strong>T.C.Dolar</strong></td>
+                    <td><strong>T.C.Euro</strong></td>
+                    <td><strong>Utilidad neta</strong></td>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat-start="item in utilidadHistorial | orderBy: 'fecha'">
+                      <td class="text-center">
+                        <button ng-if="item.expanded" ng-click="item.expanded = false" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-up"></i></button>
+                        <button ng-if="!item.expanded" ng-click="item.expanded = true" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-down"></i></button>
+                      </td>
+                      <td><span ng-bind="$index+1"></span></td>
+                      <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                      <td style="text-align: right;"><span>S/.</span><span ng-bind="item.utilidadSoles | number: 3"></span></td>
+                      <td style="text-align: right;"><span>$</span><span ng-bind="item.utilidadDolares | number: 3"></span></td>
+                      <td style="text-align: right;"><span>&#8364;</span><span ng-bind="item.utilidadEuros | number: 3"></span></td>
+                      <td style="text-align: right;"><span>S/.</span><span ng-bind="item.utilidadTotal | number: 3"></span></td>
+                      <td style="text-align: right;"><span ng-bind="item.tipoCambioCompraDolares | number: 3"></span></td>
+                      <td style="text-align: right;"><span ng-bind="item.tipoCambioCompraEuros | number: 3"></span></td>
+                      <td style="text-align: right;"><strong>S/.</strong><strong ng-bind="item.utilidadPorDia | number: 3"></strong></td>
+                    </tr>
+                    <tr ng-if="item.expanded" ng-repeat-end>
+                      <td colspan="10">
+                        <div class="row">
+
+                          <div class="col-sm-4">
+                            <div class="card-pf">
+                              <div class="card-pf-heading">
+                                <h2 class="card-pf-title">Nuevos Soles</h2>
+                              </div>
+                              <div class="card-pf-body">
+                                <table class="table table-striped table-bordered">
+                                  <thead>
+                                  <tr>
+                                    <th>Denominacion</th>
+                                    <th>Valor</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                    <td>Caja</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cajaSoles | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Bancos</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.bancosSoles | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Ctas. por cobrar</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cuentasPorCobrarSoles | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Ctas. por pagar</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cuentasPorPagarSoles | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Patrimonio</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.patrimonioSoles | number: 2"></span></td>
+                                  </tr>
+                                  </tbody>
+                                  <tr class="space-2">
+                                    <td align="right"><strong>Cierre dia:</strong></td>
+                                    <td align="right">
+                                      <strong>S/.</strong>
+                                      <strong data-ng-bind="item.utilidadSoles | number: 3"></strong>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <div class="card-pf">
+                              <div class="card-pf-heading">
+                                <h2 class="card-pf-title">Dolares</h2>
+                              </div>
+                              <div class="card-pf-body">
+                                <table class="table table-striped table-bordered">
+                                  <thead>
+                                  <tr>
+                                    <th>Denominacion</th>
+                                    <th>Valor</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                    <td>Caja</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cajaDolares | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Bancos</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.bancosDolares | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Ctas. por cobrar</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cuentasPorCobrarDolares | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Ctas. por pagar</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cuentasPorPagarDolares | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Patrimonio</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.patrimonioDolares | number: 2"></span></td>
+                                  </tr>
+                                  </tbody>
+                                  <tr class="space-2">
+                                    <td align="right"><strong>Cierre dia:</strong></td>
+                                    <td align="right">
+                                      <strong>$</strong>
+                                      <strong data-ng-bind="item.utilidadDolares | number: 3"></strong>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <div class="card-pf">
+                              <div class="card-pf-heading">
+                                <h2 class="card-pf-title">Euros</h2>
+                              </div>
+                              <div class="card-pf-body">
+                                <table class="table table-striped table-bordered">
+                                  <thead>
+                                  <tr>
+                                    <th>Denominacion</th>
+                                    <th>Valor</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                    <td>Caja</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cajaEuros | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Bancos</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.bancosEuros | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Ctas. por cobrar</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cuentasPorCobrarEuros | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Ctas. por pagar</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.cuentasPorPagarEuros | number: 2"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Patrimonio</td>
+                                    <td style="text-align: right;"><span data-ng-bind="item.patrimonioEuros | number: 2"></span></td>
+                                  </tr>
+                                  </tbody>
+                                  <tr class="space-2">
+                                    <td align="right"><strong>Cierre dia:</strong></td>
+                                    <td align="right">
+                                      <strong>&#8364;</strong>
+                                      <strong data-ng-bind="item.utilidadEuros | number: 3"></strong>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </td>
+                    </tr>
+                    <tr ng-if="!utilidadHistorial.length">
+                      <td colspan="6">No existente</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
