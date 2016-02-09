@@ -1,26 +1,26 @@
 'use strict';
 
 // Setting up route
-angular.module('utilidad').config(['$stateProvider', '$urlRouterProvider',
+angular.module('pendiente').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
-    //$urlRouterProvider.when('/utilidad/app', '/utilidad/app/reporte');
+    $urlRouterProvider.when('/pendiente/app', '/pendiente/app/reportePendiente');
 
     $stateProvider
-      .state('utilidad', {
+      .state('pendiente', {
         abstract: true,
-        url: '/utilidad',
-        templateUrl: 'modules/utilidad/views/_body.html',
-        controller: 'UtilidadController'
+        url: '/pendiente',
+        templateUrl: 'modules/pendientes/views/_body.html',
+        controller: 'PendienteController'
       })
-      .state('utilidad.home', {
+      .state('pendiente.home', {
         url: '/home',
-        templateUrl: 'modules/utilidad/views/index.html',
+        templateUrl: 'modules/pendientes/views/index.html',
         ncyBreadcrumb: {
           label: 'Index'
         }
       })
-      .state('utilidad.app', {
+      .state('pendiente.app', {
         url: '/app',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
@@ -28,12 +28,13 @@ angular.module('utilidad').config(['$stateProvider', '$urlRouterProvider',
         }
       })
 
-      .state('utilidad.app.reporte', {
-        url: '/reporteResumen',
-        templateUrl: 'modules/utilidad/views/pendienteReporte.html',
-        controller: 'Utilidad.ReporteUtilidadController'
+      .state('pendiente.app.reporte', {
+        url: '/reportePendiente',
+        templateUrl: 'modules/pendientes/views/pendienteReporte.html',
+        controller: 'Pendiente.ReportePendienteController'
       })
-      .state('utilidad.app.reporteDetallado', {
+
+      /*.state('utilidad.app.reporteDetallado', {
         url: '/reporteDetallado',
         templateUrl: 'modules/utilidad/views/reporte_detallado.html',
         controller: 'Utilidad.ReporteDetalladoController'
@@ -43,6 +44,6 @@ angular.module('utilidad').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'modules/utilidad/views/reporte_movimientos.html',
         controller: 'Utilidad.ReporteMovimientosController'
       });
-
+      */
   }
 ]);

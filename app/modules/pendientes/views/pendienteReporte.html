@@ -1,0 +1,267 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="page-header page-header-bleed-right">
+      <div class="actions pull-right">
+        <button type="button" class="btn btn-link"><span class="pficon pficon-refresh"></span> Actualizar</button>
+      </div>
+      <h1>Pendientes</h1>
+    </div>
+
+    <div class="row row-cards-pf">
+      <div class="col-sm-4">
+        <div class="card-pf card-pf-accented card-pf-aggregate-status">
+          <h2 class="card-pf-title">
+            <a href="#"><span class="pficon pficon-cluster"></span><strong>SOBRANTE:</strong></a>
+            <a href="#">S/.<span data-ng-bind="sobranteTotalSoles | number: 2"
+                                                                            class="card-pf-aggregate-status-count"></span></a>
+          </h2>
+          <h2 class="card-pf-title">
+            <a href="#"><span class="pficon pficon-cluster"></span><strong>FALTANTE:</strong></a>
+            <a href="#">S/.<span data-ng-bind="faltanteTotalSoles | number: 2"
+                                                                            class="card-pf-aggregate-status-count"></span></a>
+          </h2>
+          <div class="card-pf-body">
+            <p class="card-pf-aggregate-status-notifications">
+              <span class="card-pf-aggregate-status-notification"><a
+                href="#"><span>Pendiente Acumulado Soles</span></a></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="card-pf card-pf-accented card-pf-aggregate-status">
+          <h2 class="card-pf-title">
+            <a href="#"><span class="pficon pficon-cluster"></span><strong>SOBRANTE:</strong></a>
+            <a href="#">$<span data-ng-bind="sobranteTotalDolares | number: 2"
+                                 class="card-pf-aggregate-status-count"></span></a>
+          </h2>
+          <h2 class="card-pf-title">
+            <a href="#"><span class="pficon pficon-cluster"></span><strong>FALTANTE:</strong></a>
+            <a href="#">$<span data-ng-bind="faltanteTotalDolares | number: 2"
+                                 class="card-pf-aggregate-status-count"></span></a>
+          </h2>
+          <div class="card-pf-body">
+            <p class="card-pf-aggregate-status-notifications">
+              <span class="card-pf-aggregate-status-notification"><a
+                href="#"><span>Pendiente Acumulado Dolares</span></a></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="card-pf card-pf-accented card-pf-aggregate-status">
+          <h2 class="card-pf-title">
+            <a href="#"><span class="pficon pficon-cluster"></span><strong>SOBRANTE:</strong></a>
+            <a href="#">€<span data-ng-bind="sobranteTotalEuros | number: 2"
+                                 class="card-pf-aggregate-status-count"></span></a>
+          </h2>
+          <h2 class="card-pf-title">
+            <a href="#"><span class="pficon pficon-cluster"></span><strong>FALTANTE:</strong></a>
+            <a href="#">€<span data-ng-bind="faltanteTotalEuros | number: 2"
+                                 class="card-pf-aggregate-status-count"></span></a>
+          </h2>
+          <div class="card-pf-body">
+            <p class="card-pf-aggregate-status-notifications">
+              <span class="card-pf-aggregate-status-notification"><a
+                href="#"><span>Pendiente Acumulado Euros</span></a></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /col -->
+
+  <!-- /col -->
+</div>
+
+<hr/>
+
+<div class="row row-cards-pf">
+  <div class="col-sm-12">
+    <div class="card-pf card-pf-accented">
+      <div class="card-pf-body">
+        <form name="form" ng-submit="generarReporte()" class="form-inline">
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="required">*</span> Periodo:</label>
+            <div class="col-sm-2" data-ng-controller="Util.DateController">
+              <div class="input-group" data-ng-class="{ 'has-error' : form.desde.$invalid && (form.$submitted)}">
+                <input type="text" name="desde" class="form-control" data-ng-model="view.desde" datepicker-popup="dd/MM/yyyy" is-open="opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" placeholder="Desde" required>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+              </div>
+            </div>
+            <div class="col-sm-2" data-ng-controller="Util.DateController">
+              <div class="input-group" data-ng-class="{ 'has-error' : form.hasta.$invalid && (form.$submitted)}">
+                <input type="text" name="hasta" class="form-control" data-ng-model="view.hasta" datepicker-popup="dd/MM/yyyy" is-open="opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" placeholder="Hasta" required>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="buscarPendientes()">Buscar&nbsp;<i class="fa fa-search text"></i></button></span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group text-right">
+                <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="imprimir()">Imprimir&nbsp;<i class="pficon pficon-print text"></i></button></span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <br>
+
+
+
+
+        <tabset>
+          <tab heading="Nuevos Soles">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                  <td><strong></strong></td>
+                  <td><strong>N°</strong></td>
+                  <td><strong>Tipo Pendiente</strong></td>
+                  <td><strong>Observación</strong></td>
+                  <td><strong>Moneda</strong></td>
+                  <td><strong>Monto</strong></td>
+                  <td><strong>Fecha</strong></td>
+                  <td><strong>Agencia</strong></td>
+                  <td><strong>Caja</strong></td>
+                  <td><strong>Trabajador</strong></td>
+                  <td><strong>Imp.</strong></td>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat-start="item in pendienteHistorialSoles | orderBy: 'fecha'">
+                    <td class="text-center">
+                      <button ng-if="item.expanded" ng-click="item.expanded = false" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-up"></i></button>
+                      <button ng-if="!item.expanded" ng-click="item.expanded = true" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-down"></i></button>
+                    </td>
+                    <td><span ng-bind="$index+1"></span></td>
+                    <td><span ng-bind="item.tipoPendiente"></span></td>
+                    <td><span ng-bind="item.observacion"></span></td>
+                    <td><span ng-bind="item.simboloMoneda"></span></td>
+                    <td style="text-align: right;"><span>S/.</span><span ng-bind="item.monto | number: 3"></span></td>
+                    <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                    <td><span ng-bind="item.abreviaturaAgencia"></span></td>
+                    <td><span ng-bind="item.denominacionCaja"></span></td>
+                    <td><span ng-bind="item.trabajadorCrea"></span></td>
+                    <td style="text-align: right;"><span>S/.</span></td>
+
+                  </tr>
+                  <tr ng-if="item.expanded" ng-repeat-end>
+
+                  </tr>
+                  <tr ng-if="!pendienteHistorialSoles.length">
+                    <td colspan="11">No existente</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </tab>
+
+          <tab heading="Dolares">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                  <td><strong></strong></td>
+                  <td><strong>N°</strong></td>
+                  <td><strong>Tipo Pendiente</strong></td>
+                  <td><strong>Observación</strong></td>
+                  <td><strong>Moneda</strong></td>
+                  <td><strong>Monto</strong></td>
+                  <td><strong>Fecha</strong></td>
+                  <td><strong>Agencia</strong></td>
+                  <td><strong>Caja</strong></td>
+                  <td><strong>Trabajador</strong></td>
+                  <td><strong>Imp.</strong></td>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat-start="item in pendienteHistorialDolares | orderBy: 'fecha'">
+                    <td class="text-center">
+                      <button ng-if="item.expanded" ng-click="item.expanded = false" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-up"></i></button>
+                      <button ng-if="!item.expanded" ng-click="item.expanded = true" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-down"></i></button>
+                    </td>
+                    <td><span ng-bind="$index+1"></span></td>
+                    <td><span ng-bind="item.tipoPendiente"></span></td>
+                    <td><span ng-bind="item.observacion"></span></td>
+                    <td><span ng-bind="item.simboloMoneda"></span></td>
+                    <td style="text-align: right;"><span>S/.</span><span ng-bind="item.monto | number: 3"></span></td>
+                    <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                    <td><span ng-bind="item.abreviaturaAgencia"></span></td>
+                    <td><span ng-bind="item.denominacionCaja"></span></td>
+                    <td><span ng-bind="item.trabajadorCrea"></span></td>
+                    <td style="text-align: right;"><span>S/.</span></td>
+
+                  </tr>
+                  <tr ng-if="item.expanded" ng-repeat-end>
+
+                  </tr>
+                  <tr ng-if="!pendienteHistorialDolares.length">
+                    <td colspan="11">No existente</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </tab>
+
+          <tab heading="Euros">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                  <td><strong></strong></td>
+                  <td><strong>N°</strong></td>
+                  <td><strong>Tipo Pendiente</strong></td>
+                  <td><strong>Observación</strong></td>
+                  <td><strong>Moneda</strong></td>
+                  <td><strong>Monto</strong></td>
+                  <td><strong>Fecha</strong></td>
+                  <td><strong>Agencia</strong></td>
+                  <td><strong>Caja</strong></td>
+                  <td><strong>Trabajador</strong></td>
+                  <td><strong>Imp.</strong></td>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat-start="item in pendienteHistorialEuros | orderBy: 'fecha'">
+                    <td class="text-center">
+                      <button ng-if="item.expanded" ng-click="item.expanded = false" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-up"></i></button>
+                      <button ng-if="!item.expanded" ng-click="item.expanded = true" type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-down"></i></button>
+                    </td>
+                    <td><span ng-bind="$index+1"></span></td>
+                    <td><span ng-bind="item.tipoPendiente"></span></td>
+                    <td><span ng-bind="item.observacion"></span></td>
+                    <td><span ng-bind="item.simboloMoneda"></span></td>
+                    <td style="text-align: right;"><span>S/.</span><span ng-bind="item.monto | number: 3"></span></td>
+                    <td><span ng-bind="item.fecha | date:'dd/MM/yyyy'"></span></td>
+                    <td><span ng-bind="item.abreviaturaAgencia"></span></td>
+                    <td><span ng-bind="item.denominacionCaja"></span></td>
+                    <td><span ng-bind="item.trabajadorCrea"></span></td>
+                    <td style="text-align: right;"><span>S/.</span></td>
+
+                  </tr>
+                  <tr ng-if="item.expanded" ng-repeat-end>
+
+                  </tr>
+                  <tr ng-if="!pendienteHistorialEuros.length">
+                    <td colspan="11">No existente</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+
+      </div>
+    </div>
+  </div>
+</div>
