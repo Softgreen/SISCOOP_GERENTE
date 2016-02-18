@@ -30,7 +30,7 @@ angular.module('utilidad').config(['$stateProvider', '$urlRouterProvider',
 
       .state('utilidad.app.reporte', {
         url: '/reporteResumen',
-        templateUrl: 'modules/utilidad/views/pendienteReporte.html',
+        templateUrl: 'modules/utilidad/views/utilidadReporte.html',
         controller: 'Utilidad.ReporteUtilidadController'
       })
       .state('utilidad.app.reporteDetallado', {
