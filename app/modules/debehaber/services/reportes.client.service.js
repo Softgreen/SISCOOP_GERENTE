@@ -37,6 +37,10 @@ angular.module('debehaber').factory('ReportesService', ['Restangular',
             },
             getUtilidadHistorial: function (queryParams) {
               return Restangular.all(baseUrl).customGET('utilidad/historial', queryParams);
+            },
+            getUtilidadMovimientos: function (queryParams) {
+              return Restangular.all(baseUrl).customGET('utilidad/movimientos', queryParams);
             }
+
         };
     }]);
