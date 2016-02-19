@@ -1,8 +1,8 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$scope', 'ReportesService', 'ReporteCajaBancosService',
-  function ($scope, ReportesService, ReporteCajaBancosService) {
+angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$scope', '$timeout', 'ReportesService', 'ReporteCajaBancosService',
+  function ($scope, $timeout, ReportesService, ReporteCajaBancosService) {
 
     $scope.utilidad = {
       total: undefined,
@@ -136,9 +136,7 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
         x: 'x',
         columns: [
           ['x'],
-          ['Utilidad'],
-          ['T.Cambio dolar'],
-          ['T.Cambio euro']
+          ['Utilidad']
         ]
       },
       axis: {
@@ -159,11 +157,9 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
       }
     };
 
-    $scope.addDataPoint = function (fecha, utilidad, tipoCambioDolar, tipoCambioEuro) {
+    $scope.addDataPoint = function (fecha, utilidad) {
       $scope.chartConfig.data.columns[0].push(fecha);
       $scope.chartConfig.data.columns[1].push(utilidad);
-      $scope.chartConfig.data.columns[2].push(tipoCambioDolar);
-      $scope.chartConfig.data.columns[3].push(tipoCambioEuro);
     };
 
     var loadHistorialUtilidades = function() {
@@ -176,9 +172,6 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
 
       ReportesService.getUtilidadHistorial({desde: desde.getTime(), hasta: hasta.getTime()}).then(function(response){
         $scope.utilidad.utilidadHistorial = response;
-        for(var i = 0; i < response.length; i++) {
-          $scope.addDataPoint(response[i].fecha, response[i].utilidadPorDia, response[i].tipoCambioCompraDolares, response[i].tipoCambioCompraEuros);
-        }
       });
     };
     loadHistorialUtilidades();
@@ -208,6 +201,66 @@ angular.module('utilidad').controller('Utilidad.ReporteUtilidadController', ['$s
       }
       $scope.utilidad.netaDelDia = utilidadTotal - ultimaUtilidadTotal;
     };
+
+
+
+
+
+    /*Por periodos**/
+    var refreshDates = function(){
+      $scope.view = {
+        desde: new Date(),
+        hasta: new Date()
+      };
+    };
+    refreshDates();
+
+    $scope.$watch('combo.selected.periodo', function(newVal, oldVal){
+      if(angular.isDefined(newVal)) {
+        if(newVal === 'DIARIO') {
+          refreshDates();
+          var currentDate = new Date();
+          $scope.view.desde.setDate(currentDate.getDate() - 30);
+          $scope.view.hasta.setDate(currentDate.getDate());
+        } else if(newVal === 'MENSUAL') {
+          refreshDates();
+          var currentDate = new Date();
+          $scope.view.desde.setDate(currentDate.getDate() - (30 * 12));
+          $scope.view.hasta.setDate(currentDate.getDate());
+        } else if(newVal === 'ANUAL') {
+          refreshDates();
+          var currentDate = new Date();
+          $scope.view.desde.setDate(currentDate.getDate() - (360 * 12));
+          $scope.view.hasta.setDate(currentDate.getDate());
+        }
+      }
+    }, true);
+
+    $scope.combo = {
+      periodo: ['DIARIO', 'MENSUAL', 'ANUAL']
+    };
+    $scope.combo.selected = {
+      periodo: 'DIARIO'
+    };
+    $scope.loadHistorialPorPeriodos = function () {
+      console.log($scope.view.desde);
+      console.log($scope.view.hasta);
+      ReportesService.getUtilidadHistorialPeriodo({desde: $scope.view.desde.getTime(), hasta: $scope.view.hasta.getTime(), periodo: $scope.combo.selected.periodo}).then(function(response){
+        $scope.chartConfig.data.columns[0] = ['x'];
+        $scope.chartConfig.data.columns[1] = ['Utilidad'];
+
+        for(var i = 0; i < response.length; i++) {
+          var date = new Date();
+          date.setYear(response[i].anio);
+          date.setMonth(angular.isDefined(response[i].mes) ? response[i].mes: 1);
+          date.setDate(angular.isDefined(response[i].dia) ? response[i].dia : 1);
+
+          $scope.addDataPoint(date, response[i].utilidad);
+        }
+      });
+    };
+
+    $timeout($scope.loadHistorialPorPeriodos, 500);
 
   }
 ]);

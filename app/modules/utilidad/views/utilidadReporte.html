@@ -220,7 +220,41 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <div pf-c3-chart id="chartId" config="chartConfig"></div>
+
+        <div class="card-pf" style="height: 180px;">
+          <div class="card-pf-heading">
+            <div class="form-inline">
+              <div class="form-group">
+                <div class="col-sm-2" data-ng-controller="Util.DateController">
+                  <select class="form-control" ng-options="item as item for item in combo.periodo" data-ng-model="combo.selected.periodo"></select>
+                </div>
+                <div class="col-sm-2" data-ng-controller="Util.DateController">
+                  <div class="input-group" data-ng-class="{ 'has-error' : form.desde.$invalid && (form.$submitted)}">
+                    <input type="text" name="desde" class="form-control" data-ng-model="view.desde" datepicker-popup="dd/MM/yyyy" is-open="opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" placeholder="Desde" required>
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                  </div>
+                </div>
+                <div class="col-sm-2" data-ng-controller="Util.DateController">
+                  <div class="input-group" data-ng-class="{ 'has-error' : form.hasta.$invalid && (form.$submitted)}">
+                    <input type="text" name="hasta" class="form-control" data-ng-model="view.hasta" datepicker-popup="dd/MM/yyyy" is-open="opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" placeholder="Hasta" required>
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-group">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" data-ng-click="loadHistorialPorPeriodos()">Buscar&nbsp;<i class="fa fa-search text"></i></button></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2 class="card-pf-title" >
+            </h2>
+          </div>
+          <div class="card-pf-body" style="">
+            <div pf-c3-chart id="chartId" config="chartConfig"></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
